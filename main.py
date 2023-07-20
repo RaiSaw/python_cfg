@@ -4,16 +4,11 @@ import csv
 
 # data to dict stored in file
 pokemon_table = {}
-pokemon_table_opp = {}
 
 
-# random choices for player_one
-def random_pokes():
-    for random_num in range(5):
-        random_num = random.randint(1, 151)
-        print(random_num)
-
-    poke_id = int(input('Which pokemon do you choose?\n'))
+# random pokemon id
+def random_poke():
+    poke_id = random.randint(1, 151)
 
     if poke_id in pokemon_table:
         return pokemon_table[poke_id]
@@ -34,38 +29,15 @@ def random_pokes():
     return pokemon
 
 
-# random pokemon for opponent
-def opponent_random():
-    poke_id = random.randint(1, 151)
-
-    if poke_id in pokemon_table_opp:
-        return pokemon_table_opp[poke_id]
-    else:
-        url = 'https://pokeapi.co/api/v2/pokemon/{}/'.format(poke_id)
-    response = requests.get(url)
-    poke = response.json()
-
-    pokemon_opponent = {
-        'name': poke['name'],
-        'id': poke['id'],
-        'height': poke['height'],
-        'weight': poke['weight'],
-        'stat': poke['stats'][0]['base_stat'],
-        'experience': poke['base_experience']
-    }
-    pokemon_table_opp[poke_id] = pokemon_opponent
-    return pokemon_opponent
-
-
 # play the game
 def duel():
-    player_one = random_pokes()
-    player_two = opponent_random()
+    player_one = random_poke()
+    player_two = random_poke()
 
-    print('You chose pokemon: {}'.format(player_one['name'].capitalize()))
-    print('Id: {}\nHeight: {}\nWeight: {}\nStat: {}\nExperience: {}\n'.format(player_one['id'], player_one['height'],
-                                                                              player_one['weight'], player_one['stat'],
-                                                                              player_one['experience']))
+    print('Your pokemon is: {}\nId: {}\nHeight: {}\nWeight: {}\nStat: {}\nExperience: {}\n'.format(
+        player_one['name'].capitalize(), player_one['id'], player_one['height'],
+        player_one['weight'], player_one['stat'], player_one['experience']))
+
     # reading csv file to let previous round winner choose stat
     with open('poke.csv', 'r') as csv_file:
         spreadsheet = csv.DictReader(csv_file)
@@ -130,6 +102,7 @@ def duel():
         spreadsheet = csv.DictWriter(csv_file, fieldnames=poke_duel)
         spreadsheet.writeheader()
         spreadsheet.writerows(rec)
+
         # for row in rec:
         # print('Player:{} score:{}'.format(row['player'], row['result']))
 
@@ -146,10 +119,11 @@ def duel():
 
 duel()
 
+pokemon_data = []
 # writing data retrieved from API
 with open('pokemon.txt', 'r') as text_file:
     pokemon_data = text_file.read()
 
-pokemon_data = pokemon_data + str(pokemon_table) + ',\n' + str(pokemon_table_opp) + ',\n'
+pokemon_data = pokemon_data + str(pokemon_table) + ',\n'
 with open('pokemon.txt', 'w+') as text_file:
     text_file.write(pokemon_data)

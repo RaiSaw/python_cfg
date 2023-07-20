@@ -1,0 +1,4 @@
+{83: {'name': 'farfetchd', 'id': 83, 'height': 8, 'weight': 150, 'stat': 52, 'experience': 132}, 86: {'name': 'seel', 'id': 86, 'height': 11, 'weight': 900, 'stat': 65, 'experience': 65}},
+{6: {'name': 'charizard', 'id': 6, 'height': 17, 'weight': 905, 'stat': 78, 'experience': 267}, 89: {'name': 'muk', 'id': 89, 'height': 12, 'weight': 300, 'stat': 105, 'experience': 175}},
+{2: {'name': 'ivysaur', 'id': 2, 'height': 10, 'weight': 130, 'stat': 60, 'experience': 142}, 130: {'name': 'gyarados', 'id': 130, 'height': 65, 'weight': 2350, 'stat': 95, 'experience': 189}},
+{57: {'name': 'primeape', 'id': 57, 'height': 10, 'weight': 320, 'stat': 65, 'experience': 159}, 96: {'name': 'drowzee', 'id': 96, 'height': 10, 'weight': 324, 'stat': 60, 'experience': 66}},
